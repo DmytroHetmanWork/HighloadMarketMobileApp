@@ -20,13 +20,25 @@ struct RegisterView: View {
             Text("Register").font(.largeTitle).bold()
 
             TextField("Name", text: $name)
-                .textFieldStyle(.roundedBorder)
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(8)
+                .textFieldStyle(.plain)
 
             TextField("Email", text: $email)
-                .textFieldStyle(.roundedBorder)
+                .keyboardType(.emailAddress)
+                .textContentType(.emailAddress)
+                .autocapitalization(.none)
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(8)
+                .textFieldStyle(.plain)
 
             SecureField("Password", text: $password)
-                .textFieldStyle(.roundedBorder)
+                .textContentType(.password)
+                .padding()
+                .background(Color(.systemGray6))
+                .cornerRadius(8)
 
             Button("Register") {
                 Task {

@@ -12,9 +12,12 @@ struct LoginView: View {
     @State private var email = ""
     @State private var password = ""
     @State private var isLoading = false
+    @State private var showRegister = false
 
     var body: some View {
         VStack(spacing: 20) {
+            Text("Login").font(.largeTitle).bold()
+            
             TextField("Email", text: $email)
                 .keyboardType(.emailAddress)
                 .textContentType(.emailAddress)
@@ -50,8 +53,15 @@ struct LoginView: View {
             }
 
             Spacer()
+            
+            Button("Don't have an account? Register") {
+                showRegister = true
+            }
         }
         .padding()
+        .fullScreenCover(isPresented: $showRegister) {
+            RegisterView()
+        }
         .alert(isPresented: Binding<Bool>(
             get: { authViewModel.errorMessage != nil },
             set: { _ in authViewModel.errorMessage = nil }
