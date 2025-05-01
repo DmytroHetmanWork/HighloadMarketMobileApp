@@ -12,7 +12,7 @@ struct ProductDetailView: View {
     @StateObject private var viewModel = ProductDetailViewModel()
 
     var body: some View {
-        Group {
+        VStack(spacing: 0) {
             if viewModel.isLoading {
                 ProgressView("Loading product...")
             } else if let error = viewModel.errorMessage {
@@ -92,7 +92,7 @@ struct ProductDetailView: View {
                 .navigationBarTitleDisplayMode(.inline)
             }
         }
-        .onAppear {
+        .task {
             viewModel.loadProductDetail(productId: productId)
         }
     }

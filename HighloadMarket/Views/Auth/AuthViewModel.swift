@@ -16,13 +16,20 @@ class AuthViewModel: ObservableObject {
     func login(email: String, password: String) async {
         let loginRequest = LoginRequest(email: email, password: password)
         do {
-            let response: AuthResponse = try await NetworkService.shared.sendRequest(
-                .loginUser(data: loginRequest),
-                responseModel: AuthResponse.self
-            )
-            self.errorMessage = nil
-            self.user = User(id: response.id, email: response.email, name: response.name, createdAt: response.createdAt)
-            self.isAuthenticated = true
+            if MockDataConfig.isMocked {
+                await MainActor.run {
+                    self.user = User(id: "LAlaLaID", email: "email@gmail.com", name: "Vasya", createdAt: "\(Date().ISO8601Format())")
+                    self.isAuthenticated = true
+                }
+            } else {
+                let response: AuthResponse = try await NetworkService.shared.sendRequest(
+                    .loginUser(data: loginRequest),
+                    responseModel: AuthResponse.self
+                )
+                self.errorMessage = nil
+                self.user = User(id: response.id, email: response.email, name: response.name, createdAt: response.createdAt)
+                self.isAuthenticated = true
+            }
         } catch {
             self.errorMessage = "Login failed: \(error.localizedDescription)"
             self.isAuthenticated = false

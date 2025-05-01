@@ -25,6 +25,7 @@ struct ProductListView: View {
                                     image.resizable().scaledToFit()
                                 } placeholder: {
                                     Color.gray.opacity(0.2)
+                                        .cornerRadius(8)
                                 }
                                 .frame(width: 50, height: 50)
 

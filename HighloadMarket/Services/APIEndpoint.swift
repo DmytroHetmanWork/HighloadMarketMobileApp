@@ -12,8 +12,8 @@ import Foundation
 // MARK: - Dev: http://dev-api.example.com/v1
 
 enum ServerProvider {
-    static let prod = "http://api.example.com/v1"
-    static let dev = "http://dev-api.example.com/v1"
+    static let prod = "https://api.example.com/v1"
+    static let dev = "https://dev-api.example.com/v1"
 }
 
 enum APIEndpoint {
